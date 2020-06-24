@@ -1,5 +1,5 @@
-# survey-app-ios
-Survey App implementation for iOS devices
+# survey-flutter
+Survey App implementation for iOS & Android devices
 
 ## Getting Started
 
