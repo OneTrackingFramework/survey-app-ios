@@ -35,8 +35,8 @@ TODO
 TODO
 
 ## Built With
-
-TODO
+This project is using code generation run the following command before build:
+flutter pub run build_runner watch --delete-conflicting-outputs
 
 ## Contributing
 
