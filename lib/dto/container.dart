@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'question.dart';
-import 'suervey_response.dart';
+import 'survey_response.dart';
 
 part 'container.g.dart';
 

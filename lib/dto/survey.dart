@@ -24,20 +24,20 @@ class Survey {
 
 @JsonSerializable(includeIfNull: false)
 class SurveyStatus {
-  int countQuestions;
-  String nameId;
-  String description;
-  String title;
-  int nextQuestionId;
-  Status status;
-  String token;
+  final int countQuestions;
+  final String nameId;
+  final String description;
+  final String title;
+  final int nextQuestionId;
+  final Status status;
+  final String token;
 
   //@Nullable
-  int startTime;
-  int endTime;
-  String dependsOn;
+  final int startTime;
+  final int endTime;
+  final String dependsOn;
 
-  SurveyStatus(
+  const SurveyStatus(
       {this.countQuestions,
       this.nameId,
       this.description,

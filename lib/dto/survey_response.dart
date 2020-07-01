@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'suervey_response.g.dart';
+part 'survey_response.g.dart';
 
 @JsonSerializable()
 class SurveyResponse {
