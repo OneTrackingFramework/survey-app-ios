@@ -6,12 +6,12 @@ import 'container.dart';
 part 'question.g.dart';
 
 abstract class Question {
-  int id;
-  String question;
-  bool optional;
-  Container container;
+  final int id;
+  final String question;
+  final bool optional;
+  final Container container;
 
-  Question(this.id, this.question, this.optional);
+  Question({this.id, this.question, this.optional, this.container = null});
 
   factory Question.fromJson(Map<String, dynamic> json) {
     switch (json["type"]) {
@@ -33,23 +33,28 @@ abstract class Question {
   }
 
   Map<String, dynamic> toJson();
+
+  @override
+  String toString() {
+    return 'Question{id: $id, question: $question, optional: $optional, container: $container}';
+  }
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class BooleanQuestion extends Question {
-  int id;
-  String question;
-  bool optional;
-  Container container;
-  bool defaultAnswer;
+  final bool defaultAnswer;
 
   BooleanQuestion(
       {int id,
       String question,
       bool optional,
-      this.container,
+      Container container,
       this.defaultAnswer = false})
-      : super(id, question, optional);
+      : super(
+            id: id,
+            question: question,
+            optional: optional,
+            container: container);
 
   factory BooleanQuestion.fromJson(Map<String, dynamic> json) =>
       _$BooleanQuestionFromJson(json);
@@ -57,7 +62,7 @@ class BooleanQuestion extends Question {
   Map<String, dynamic> toJson() => _$BooleanQuestionToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class ChecklistEntry {
   int id;
   String question;
@@ -72,12 +77,12 @@ class ChecklistEntry {
   Map<String, dynamic> toJson() => _$ChecklistEntryToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class ChecklistQuestion extends Question {
-  List<ChecklistEntry> entries;
+  final List<ChecklistEntry> entries;
 
   ChecklistQuestion({int id, String question, bool optional, this.entries})
-      : super(id, question, optional);
+      : super(id: id, question: question, optional: optional);
 
   factory ChecklistQuestion.fromJson(Map<String, dynamic> json) =>
       _$ChecklistQuestionFromJson(json);
@@ -85,22 +90,24 @@ class ChecklistQuestion extends Question {
   Map<String, dynamic> toJson() => _$ChecklistQuestionToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class ChoiceQuestion extends Question {
-  Container container;
-  List<Answer> answers;
-  int defaultAnswer;
-  bool multiple;
+  final List<Answer> answers;
+  final int defaultAnswer;
+  final bool multiple;
 
-  ChoiceQuestion(
-      {int id,
-      String question,
-      bool optional,
-      this.container,
-      this.answers,
-      this.defaultAnswer,
-      this.multiple = false})
-      : super(id, question, optional);
+  ChoiceQuestion({int id,
+    String question,
+    bool optional,
+    Container container,
+    this.answers,
+    this.defaultAnswer,
+    this.multiple = false})
+      : super(
+      id: id,
+      question: question,
+      optional: optional,
+      container: container);
 
   factory ChoiceQuestion.fromJson(Map<String, dynamic> json) =>
       _$ChoiceQuestionFromJson(json);
@@ -108,43 +115,45 @@ class ChoiceQuestion extends Question {
   Map<String, dynamic> toJson() => _$ChoiceQuestionToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RangeQuestion extends Question {
-  int minValue;
-  int maxValue;
-  String minText;
-  String maxText;
-  int defaultValue;
+  final int minValue;
+  final int maxValue;
+  final String minText;
+  final String maxText;
+  final int defaultValue;
 
   RangeQuestion(int id, String question, bool optional, this.minValue,
       this.maxValue, this.minText, this.maxText, this.defaultValue)
-      : super(id, question, optional);
+      : super(id: id, question: question, optional: optional);
 
   Map<String, dynamic> toJson() => _$RangeQuestionToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class TextQuestion extends Question {
-  TextQuestion(
-      {int id,
-      String question,
-      bool optional,
-      bool multiline = false,
-      int length = 0})
-      : super(id, question, optional);
+  final bool multiline;
+  final int length;
+
+  TextQuestion({int id,
+    String question,
+    bool optional,
+    this.multiline = false,
+    this.length = 0})
+      : super(id: id, question: question, optional: optional);
 
   Map<String, dynamic> toJson() => _$TextQuestionToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class NumberQuestion extends Question {
-  int minValue;
-  int maxValue;
-  int defaultValue;
+  final int minValue;
+  final int maxValue;
+  final int defaultValue;
 
   NumberQuestion(int id, String question, bool optional, this.minValue,
       this.maxValue, this.defaultValue)
-      : super(id, question, optional);
+      : super(id: id, question: question, optional: optional);
 
   Map<String, dynamic> toJson() => _$NumberQuestionToJson(this);
 }

@@ -6,7 +6,7 @@ import 'survey_response.dart';
 part 'container.g.dart';
 
 abstract class Container {
-  List<Question> subQuestions = List();
+  final List<Question> subQuestions;
 
   Container(this.subQuestions);
 
@@ -24,13 +24,18 @@ abstract class Container {
   }
 
   Map<String, dynamic> toJson();
+
+  @override
+  String toString() {
+    return 'Container{subQuestions: $subQuestions}';
+  }
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class BooleanContainer extends Container {
-  bool boolDependsOn;
+  final bool boolDependsOn;
 
-  BooleanContainer(bool boolDependsOn, List<Question> subQuestions)
+  BooleanContainer(this.boolDependsOn, List<Question> subQuestions)
       : super(subQuestions);
 
   @override
@@ -41,11 +46,11 @@ class BooleanContainer extends Container {
   Map<String, dynamic> toJson() => _$BooleanContainerToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class ChoiceContainer extends Container {
-  List<int> choiceDependsOn;
+  final List<int> choiceDependsOn;
 
-  ChoiceContainer(List<int> choiceDependsOn, List<Question> subQuestions)
+  ChoiceContainer(this.choiceDependsOn, List<Question> subQuestions)
       : super(subQuestions);
 
   @override

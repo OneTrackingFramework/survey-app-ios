@@ -6,23 +6,32 @@ import 'question.dart';
 
 part 'survey.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class Survey {
-  List<Question> questions;
-  String nameId;
-  String title; //null
-  String description; // null,
-  int version;
+  final List<Question> questions;
+  final String nameId;
+  final String title; //null
+  final String description; // null,
+  final int version;
 
   Survey(
-      this.questions, this.nameId, this.title, this.description, this.version);
+      {this.questions,
+      this.nameId,
+      this.title,
+      this.description,
+      this.version});
 
   factory Survey.fromJson(Map<String, dynamic> json) => _$SurveyFromJson(json);
 
   Map<String, dynamic> toJson() => _$SurveyToJson(this);
+
+  @override
+  String toString() {
+    return 'Survey{questions: $questions, nameId: $nameId, title: $title, description: $description, version: $version}';
+  }
 }
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class SurveyStatus {
   final int countQuestions;
   final String nameId;
